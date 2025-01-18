@@ -1,0 +1,149 @@
+<app-alert [alertType]="'success'" [message]="'this is dynamic from client project'"></app-alert>
+<app-alert alertType="success" message="this is dynamic from client project"></app-alert>
+<div class="container mt-4">
+    <div class="row">
+        <!-- Client List Section -->
+        <div class="col-lg-8 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">Client List</h5>
+                </div>
+                <div class="card-body p-4">
+                    <table class="table table-bordered table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Sr No</th>
+                                <th>Client Name</th>
+                                <th>Client Name</th>
+                                <th>Client No</th>
+                                <th>Client</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @for(proj of projectList();track $index){
+                                <tr>
+                                    <td>{{$index +1}}</td>
+                                    <td>{{proj.clientName}}</td>
+                                    <td>{{proj.projectName}}</td>
+                                    <td>{{proj.empName}}</td>
+                                    <td>{{proj.startDate | date:'dd-MM-yyyy'}}</td>
+                                    <td>
+                                        <button class="btn btn-sm btn-primary me-1" >Edit</button>
+                                        <button class="btn btn-sm btn-danger" >Delete</button>
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- New Client Section -->
+        <div class="col-lg-4">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">New Client</h5>
+                </div>
+                <div class="card-body">
+                    <form  class="row g-3" [formGroup]="projectForm" >
+                        <!-- Person Name -->
+                        <div class="col-md-6">
+                            <label class="form-label">Perso Name</label>
+                            <input type="text"  class="form-control" name="projectName" formControlName="projectName" name="projectName" formControlName="projectName">
+                            @if(projectForm.controls['projectName'].errors?.['required']){
+                                
+                                <div class="text-danger"><span>this is required</span></div>
+                            }
+                            @if(projectForm.controls['projectName'].errors?.['minlength']){
+                                <div class="text-danger"><span>this is required</span></div>
+                                
+                            }
+                            <!-- @if(projectForm.controls['projectName'].errors?.['required]){
+                                
+                            } -->
+                            <!-- @if(projectForm.controls['projectName'].errors?.['minlength]){
+                                
+                                <div class="text-danger"><span>this is required</span></div>
+                            } -->
+                        </div>
+                    
+                        <div class="col-md-6">
+                            <label class="form-label">Start Date</label>
+                            <input type="date"  class="form-control" name="startDate" formControlName="startDate" >
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Expected Date</label>
+                            <input type="date"  class="form-control" name="expectedEndDate" formControlName="expectedEndDate" >
+                        </div>
+
+    
+                        <div class="col-md-6">
+                            <label class="form-label">Company Name</label>
+                            <input type="text"  class="form-control" name="contactPerson" formControlName="contactPerson" >
+                        </div>
+
+                        <!-- Employee Strength -->
+                        <div class="col-md-6">
+                            <label class="form-label">Contact Mobile</label>
+                            <input type="number"  class="form-control" name="contactPersonContactNo" formControlName="contactPersonContactNo" >
+                        </div>
+
+                        <!-- GST -->
+                        <div class="col-md-6">
+                            <label class="form-label">Contact Email</label>
+                            <input type="email"  class="form-control" name="contactPersonEmailId" formControlName="contactPersonEmailId" >
+                        </div>
+
+                        <!-- Contact No -->
+                        <div class="col-md-6">
+                            <label class="form-label">Total Employee Count</label>
+                            <input type="text"  class="form-control" name="totalEmpWorking" formControlName="totalEmpWorking" >
+                        </div>
+
+                        <!-- Reg No -->
+                        <div class="col-md-6">
+                            <label class="form-label">Project costing</label>
+                            <input type="text"  class="form-control" name="projectCost" formControlName="projectCost" >
+                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label">Project Description</label>
+                            <textarea  class="form-control" name="projectDetails" formControlName="projectDetails" ></textarea>
+                        </div>
+                        <!-- Reg No -->
+                        <div class="col-md-6">
+                            <label class="form-label">Select Client</label>
+                            <select class="form-control" name="clientId" formControlName="clientId">
+                                <option value="">Select Client</option>
+                                @for(client of clientList;track $index){
+                                    <option [value]="client.clientId">{{ client.companyName }}</option>
+                                    
+                                }
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label class="form-label">Lead By</label>
+                            <select class="form-control" name="leadByEmpId" formControlName="leadByEmpId">
+                                <option value="">Select Employee</option>
+                                @for(emp of employeeList;track $index){
+                                    <option [value]="emp.empId">{{ emp.empName}} - {{emp.empCode}}</option>
+                    
+                                }
+                            </select>
+                        </div>
+
+                        <!-- Action Buttons -->
+                        <div class="col-12 d-flex justify-content-center gap-3 pt-3">
+                            <button type="button" class="btn btn-secondary" >Reset</button>
+                            <app-button [btnClass]="'btn btn-success'" [btnText]="'Save Project'" (onBtnClick)="onSaveProject()"></app-button>
+                            <button type="submit" class="btn btn-success" [disabled]="projectForm.invalid"  (click)="onSaveProject()">
+                                 Project
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

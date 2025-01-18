@@ -1,0 +1,70 @@
+<p>roles works!</p>
+<div class="row">
+    <div class="col-12">
+        <table class="table table-bordered ">
+            <thead>
+                <tr>
+                    <th>Sr NO</th>
+                    <th>Role Name</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of roleList;let srNo = index">
+                    <td > {{srNo + 1}}</td>
+                    <td > {{item.role}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<div class="row">
+    <div class="col-4">
+        <ul>
+            <li *ngFor="let item of roleList">{{item.roleId}}: {{item.role}}</li>
+        </ul>
+    </div>
+    <div class="col-4">
+        <select name="" id="">
+            <option *ngFor="let role of roleList" [value]="role.roleId">{{role.role}}</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <p>{{task}} {{objcetive}}</p>  
+    </div>
+    <div class="col-3">
+        <p>{{task}} {{objcetive}}</p>
+    </div>
+    <div class="col-3">
+        <p>{{task}} {{objcetive}}</p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <input type="text" [value]="task" name="" id="" class="form-control">
+    </div>
+    <div class="col-3">
+        <input [type]="inputType">
+    </div>
+    <div class="col-3">
+        <input type="text" [(ngModel)]="objcetive" class="form-control">
+    </div>
+    <div class="col-3">
+        <p>{{selectedState}}</p>
+        <select name="" id="" [(ngModel)]="selectedState">
+            <option value="A">A</option>
+            <option value="B">B</option>
+            <option value="C">C</option>
+            <option value="D">D</option>
+        </select>
+    </div>
+</div>
+<div class="row">
+    <div class="col-3">
+        <button class="btn btn-success" (click)="showAlert()">Show Alert</button>
+    </div>
+    <div class="col-3">
+        <button class="btn btn-success" (click)="showMessage('folly')">Show Message</button>
+    </div>
+</div>
